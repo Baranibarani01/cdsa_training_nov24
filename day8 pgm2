@@ -1,0 +1,97 @@
+class Node {
+    int data;
+    Node prev;
+    Node next;
+
+    // Constructor to create a new node
+    Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+// DoublyLinkedList class to manage the list
+class DoublyLinkedList {
+    Node head;
+
+    // Method to insert a node at the front
+    public void insertAtFront(int data) {
+        Node newNode = new Node(data);
+        if (head != null) {
+            head.prev = newNode;
+        }
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // Method to insert a node at the end
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = newNode;
+        newNode.prev = temp;
+    }
+
+    // Method to display the list from the beginning
+    public void displayForward() {
+        Node temp = head;
+        System.out.print("List (Forward): ");
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    // Method to display the list from the end
+    public void displayBackward() {
+        Node temp = head;
+        if (temp == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        
+        // Move to the end of the list
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        System.out.print("List (Backward): ");
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.prev;
+        }
+        System.out.println();
+    }
+}
+
+// Main class to test the DoublyLinkedList
+public class Main {
+    public static void main(String[] args) {
+        DoublyLinkedList list = new DoublyLinkedList();
+
+        // Inserting elements at the end
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+
+        // Displaying the list forward and backward
+        list.displayForward();   // Output: List (Forward): 10 20 30 
+        list.displayBackward();  // Output: List (Backward): 30 20 10 
+
+        // Inserting element at the front
+        list.insertAtFront(5);
+
+        // Displaying the list again
+        list.displayForward();   // Output: List (Forward): 5 10 20 30 
+        list.displayBackward();  // Output: List (Backward): 30 20 10 5 
+    }
+}
